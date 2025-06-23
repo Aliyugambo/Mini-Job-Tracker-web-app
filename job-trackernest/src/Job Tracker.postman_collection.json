@@ -1,0 +1,74 @@
+{
+  "info": {
+    "name": "Job Tracker",
+    "_postman_id": "b02c7591-3be6-4e41-89f2-a3b9e78d3c50",
+    "description": "Mini Job Tracker API with NestJS and JSON file storage",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Jobs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/jobs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["jobs"]
+        }
+      }
+    },
+    {
+      "name": "Create New Job",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Full Stack Developer\",\n  \"company\": \"Netflix\",\n  \"link\": \"https://jobs.netflix.com\",\n  \"status\": \"Applied\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/jobs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["jobs"]
+        }
+      }
+    },
+    {
+      "name": "Update Job",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Interviewing\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/jobs/REPLACE_JOB_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["jobs", "REPLACE_JOB_ID"]
+        }
+      }
+    },
+    {
+      "name": "Delete Job",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/jobs/REPLACE_JOB_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["jobs", "REPLACE_JOB_ID"]
+        }
+      }
+    }
+  ]
+}
