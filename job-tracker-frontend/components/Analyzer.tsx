@@ -31,21 +31,19 @@ export default function Analyzer() {
   };
 
   return (
-    <div className="space-y-4 bg-white shadow p-6 rounded max-w-xl mx-auto">
-      <h2 className="text-2xl font-semibold">AI Job Description Analyzer</h2>
-
+    <div className="space-y-4">
       <textarea
         rows={6}
         placeholder="Paste the full job description here..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="border w-full p-2 rounded"
+        className="border w-full p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
       />
 
       <button
         onClick={handleAnalyze}
         disabled={loading || !description.trim()}
-        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full"
+        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:opacity-50"
       >
         {loading ? 'Analyzing...' : 'Analyze Description'}
       </button>
@@ -54,14 +52,14 @@ export default function Analyzer() {
 
       {aiResult && (
         <div className="space-y-2 border-t pt-4">
-          <h3 className="font-semibold text-lg">AI Suggested Title:</h3>
+          <h3 className="font-semibold">AI Suggested Title:</h3>
           <p className="text-gray-700">{aiResult.title}</p>
 
-          <h3 className="font-semibold text-lg">Summary:</h3>
+          <h3 className="font-semibold">Summary:</h3>
           <p className="text-gray-700">{aiResult.summary}</p>
 
-          <h3 className="font-semibold text-lg">Recommended Skills:</h3>
-          <ul className="list-disc list-inside">
+          <h3 className="font-semibold">Recommended Skills:</h3>
+          <ul className="list-disc list-inside text-gray-700">
             {aiResult.skills.map((skill, idx) => (
               <li key={idx}>{skill}</li>
             ))}

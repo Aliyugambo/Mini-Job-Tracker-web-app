@@ -1,69 +1,64 @@
 import { useState } from 'react';
-import { JobStatus } from '@/types/job';
+import { Job } from '@/types/job';
 
-type Props = {
-  onSubmit: (job: { title: string; company: string; link: string; status: JobStatus }) => void;
-};
+interface Props {
+  onSubmit: (data: Omit<Job, 'id'>) => void;
+}
 
 export default function JobForm({ onSubmit }: Props) {
-  const [form, setForm] = useState({
-    title: '',
-    company: '',
-    link: '',
-    status: 'Applied' as JobStatus,
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
+  const [title, setTitle] = useState('');
+  const [company, setCompany] = useState('');
+  const [link, setLink] = useState('');
+  const [status, setStatus] = useState<Job['status']>('Applied');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(form);
-    setForm({ title: '', company: '', link: '', status: 'Applied' });
+    if (!title || !company || !link) return;
+
+    onSubmit({ title, company, link, status });
+    setTitle('');
+    setCompany('');
+    setLink('');
+    setStatus('Applied');
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <input
-        name="title"
-        value={form.title}
-        onChange={handleChange}
+        type="text"
         placeholder="Job Title"
-        required
-        className="border w-full p-2 rounded"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="w-full border p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
       />
       <input
-        name="company"
-        value={form.company}
-        onChange={handleChange}
+        type="text"
         placeholder="Company Name"
-        required
-        className="border w-full p-2 rounded"
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+        className="w-full border p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
       />
       <input
-        name="link"
-        value={form.link}
-        onChange={handleChange}
+        type="text"
         placeholder="Application Link"
-        required
-        className="border w-full p-2 rounded"
+        value={link}
+        onChange={(e) => setLink(e.target.value)}
+        className="w-full border p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
       />
-
       <select
-        name="status"
-        value={form.status}
-        onChange={handleChange}
-        className="border w-full p-2 rounded"
+        value={status}
+        onChange={(e) => setStatus(e.target.value as Job['status'])}
+        className="w-full border p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
       >
-        <option>Applied</option>
-        <option>Interviewing</option>
-        <option>Offer</option>
-        <option>Rejected</option>
+        <option value="Applied">Applied</option>
+        <option value="Interviewing">Interviewing</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Offer">Offer</option>
       </select>
-
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">
+      <button
+        type="submit"
+        className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
+      >
         Add Job
       </button>
     </form>

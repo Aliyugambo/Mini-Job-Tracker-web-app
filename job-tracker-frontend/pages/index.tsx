@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Job } from '@/types/job';
 import JobForm from '@/components/JobForm';
 import JobTable from '@/components/JobTable';
-import { createJob, deleteJob, getJobs } from '@/utils/api';
 import Analyzer from '@/components/Analyzer';
+import { createJob, deleteJob, getJobs } from '@/utils/api';
 
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -23,38 +23,43 @@ export default function Home() {
   };
 
   return (
-    <>
-      {/* Header */}
-      <header className="bg-white shadow mb-6">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">Job Tracker</h1>
-          <span className="text-gray-500 text-sm">Track your applications with ease</span>
-        </div>
-      </header>
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 p-4 md:p-8">
+      <div className="max-w-5xl mx-auto space-y-8">
 
-      {/* Main Content */}
-      <main className="min-h-screen bg-gray-100 py-8 px-4">
-        <div className="max-w-5xl mx-auto space-y-8">
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white shadow p-4 rounded">
-              <h2 className="text-xl font-semibold mb-4">Add New Job</h2>
-              <JobForm onSubmit={handleAdd} />
-            </div>
-
-            <div className="bg-white shadow p-4 rounded overflow-auto">
-              <h2 className="text-xl font-semibold mb-4">Job List</h2>
-              <JobTable jobs={jobs} onDelete={handleDelete} />
-            </div>
+        {/* Header */}
+        <header className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-800">🎯 Job Tracker</h1>
+            <p className="text-gray-600">Track your applications with ease</p>
           </div>
+          <div className="hidden md:block">
+            <span className="text-sm text-gray-500">Made with ❤️ using Next.js + Tailwind</span>
+          </div>
+        </header>
 
+        {/* Grid Layout */}
+        <div className="grid md:grid-cols-2 gap-6">
+          
+          {/* Add New Job */}
+          <section className="bg-white shadow-lg p-6 rounded-lg space-y-4">
+            <h2 className="text-2xl font-semibold text-gray-700">Add New Job</h2>
+            <JobForm onSubmit={handleAdd} />
+          </section>
+
+          {/* Job List */}
+          <section className="bg-white shadow-lg p-6 rounded-lg space-y-4">
+            <h2 className="text-2xl font-semibold text-gray-700">Job List</h2>
+            <JobTable jobs={jobs} onDelete={handleDelete} />
+          </section>
         </div>
 
-        {/* AI Job Description Analyzer */}
-<div className="bg-white shadow p-4 rounded">
-  <Analyzer />
-</div>
-      </main>
-    </>
+        {/* AI Analyzer */}
+        <section className="bg-white shadow-lg p-6 rounded-lg space-y-4">
+          <h2 className="text-2xl font-semibold text-gray-700">AI Job Description Analyzer</h2>
+          <Analyzer />
+        </section>
+
+      </div>
+    </main>
   );
 }

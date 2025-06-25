@@ -1,55 +1,41 @@
 import { Job } from '@/types/job';
 
-type Props = {
+interface Props {
   jobs: Job[];
   onDelete: (id: string) => void;
-};
-
-const getStatusBadgeColor = (status: string) => {
-  switch (status) {
-    case 'Applied':
-      return 'bg-blue-100 text-blue-700';
-    case 'Interviewing':
-      return 'bg-yellow-100 text-yellow-700';
-    case 'Offer':
-      return 'bg-green-100 text-green-700';
-    case 'Rejected':
-      return 'bg-red-100 text-red-700';
-    default:
-      return 'bg-gray-100 text-gray-700';
-  }
-};
+}
 
 export default function JobTable({ jobs, onDelete }: Props) {
+  if (jobs.length === 0) return <p className="text-gray-500">No jobs added yet.</p>;
+
   return (
-    <div className="overflow-auto">
-      <table className="min-w-full text-left border-collapse">
-        <thead className="bg-gray-200">
-          <tr>
-            <th className="p-2">Title</th>
-            <th className="p-2">Company</th>
-            <th className="p-2">Status</th>
-            <th className="p-2">Link</th>
-            <th className="p-2">Actions</th>
+    <div className="overflow-x-auto">
+      <table className="w-full table-auto border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="text-left p-2">Title</th>
+            <th className="text-left p-2">Company</th>
+            <th className="text-left p-2">Status</th>
+            <th className="text-left p-2">Link</th>
+            <th className="text-left p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {jobs.map((job) => (
-            <tr key={job.id} className="border-t">
+            <tr key={job.id} className="border-t hover:bg-gray-50">
               <td className="p-2">{job.title}</td>
               <td className="p-2">{job.company}</td>
-              <td className="p-2">
-                <span className={`px-2 py-1 text-sm rounded ${getStatusBadgeColor(job.status)}`}>
-                  {job.status}
-                </span>
-              </td>
-              <td className="p-2">
-                <a href={job.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+              <td className="p-2">{job.status}</td>
+              <td className="p-2 text-blue-500 underline">
+                <a href={job.link} target="_blank" rel="noopener noreferrer">
                   View
                 </a>
               </td>
               <td className="p-2">
-                <button onClick={() => onDelete(job.id)} className="text-red-500 hover:underline">
+                <button
+                  onClick={() => onDelete(job.id)}
+                  className="text-red-500 hover:underline"
+                >
                   Delete
                 </button>
               </td>
