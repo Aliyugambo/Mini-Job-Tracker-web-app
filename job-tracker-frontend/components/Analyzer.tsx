@@ -14,7 +14,7 @@ export default function Analyzer() {
     setAiResult(null);
 
     try {
-      const res = await fetch('http://localhost:3001/ai/analyze', {
+      const res = await fetch('https://mini-job-tracker-web-app-1.onrender.com/ai/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description }),
