@@ -1,6 +1,5 @@
 import { Job } from '@/types/job';
 
-// const BASE_URL = 'http://localhost:3001';
 const BASE_URL = 'https://mini-job-tracker-web-app-1.onrender.com';
 
 export const getJobs = async (): Promise<Job[]> => {
